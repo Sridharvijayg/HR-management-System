@@ -173,11 +173,12 @@ nav{
   justify-content: start;
   align-items: start;
   gap: 50px;
+  padding: 100px;
 }
 .info-box{
   border: 1px solid Black;
   background-color: rgb(235, 235, 161);
-  border-radius: 0%;
+  border-radius: 20px;
   padding: 40px;
   display: flex;
   justify-content: center;

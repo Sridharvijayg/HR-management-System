@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Nav from '../components/Nav';
 import SideNav from '../components/SideNav';
+import { MyContext } from '../context/MyContext';
 
 const AddEmployee = () => {
+
+    const {departments} = useContext(MyContext);
   const [id, setId] = useState('');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -132,10 +135,10 @@ const AddEmployee = () => {
           className='dep-text'
           required
         >
-          <option value="">Select Department</option>
-          <option value="HR">HR</option>
-          <option value="Engineering">Engineering</option>
-          <option value="Marketing">Marketing</option>
+            <option value="">Select Department</option>
+            {departments.map((dep) => (
+                <option value={dep.department}>{dep.department}</option>
+            ))}
         </select>
 
         <label htmlFor="dob">Date of Birth</label>
