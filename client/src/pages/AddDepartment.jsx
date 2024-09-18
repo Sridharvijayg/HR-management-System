@@ -41,7 +41,7 @@ const AddDepartment = () => {
     return (
     <div className='content'>
      <SideNav/>
-     <Nav title='Department'/>
+     <Nav title='Add Department'/>
      <div className="add-Department">
      <form>
         <h2>Add Department</h2>

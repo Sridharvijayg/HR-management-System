@@ -10,6 +10,16 @@ const AdminPanel = () => {
       <SideNav/>
       <div className="content">
       <Nav title='Admin panel'/>
+      <div className="Admin-info">
+        <div className="info-box">
+          <h1>Total No of Employee</h1>
+          <h2>18</h2>
+        </div>
+        <div className="info-box">
+          <h1>Total No of Employee</h1>
+          <h2>18</h2>
+        </div>
+      </div>
       </div>
     </div>
   )

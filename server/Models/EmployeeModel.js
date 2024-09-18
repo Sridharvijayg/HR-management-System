@@ -16,7 +16,29 @@ const mongoose = require('mongoose')
         },
         password: {
             type: String,
-            required: true 
+            default:"password" 
+        },
+        position: {
+            type:String,
+        },
+        department: {
+            type:String,
+        },
+        dob: {
+            type:Date,
+        },
+        contact:{
+            type:String,
+        },
+        gender: {
+            type: String,
+            enum: ['Male', 'Female', 'Others'],
+        },
+        address: {
+            type:String,
+        },
+        profilePictureUrl: {
+            type:String
         },
         role: {
             type: String,

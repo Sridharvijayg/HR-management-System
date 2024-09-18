@@ -14,11 +14,13 @@ const MyContextProvider = ({children}) => {
     const [token,setToken] = useState('');
     const [login,setLogin] = useState(false);
     const [employee,setEmployee] = useState(null);
+    const [employees,setEmployees] = useState([]);
     const [isPassVisible,setIsPassVisible] = useState(false);
     const [departments,setDepartments]= useState([]);
+    
 
   return (
-    <MyContext.Provider value={{email,setEmail,password,setPassword,otp,setOtp,newPassword,setNewPassword,confirmPassword,setConfirmPassword,msg,setMsg,isVisible,setIsVisible,token,setToken,login,setLogin,employee,setEmployee,isPassVisible,setIsPassVisible,departments,setDepartments
+    <MyContext.Provider value={{email,setEmail,password,setPassword,otp,setOtp,newPassword,setNewPassword,confirmPassword,setConfirmPassword,msg,setMsg,isVisible,setIsVisible,token,setToken,login,setLogin,employee,setEmployee,isPassVisible,setIsPassVisible,departments,setDepartments,employees,setEmployees
     }}>
         {children}
     </MyContext.Provider>

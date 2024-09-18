@@ -62,4 +62,54 @@ const searchEmployees = async (req, res) => {
 };
 
 
-module.exports = { getEmployees,searchEmployees };
+const AddEmployee = async (req, res) => {
+  try {
+    const { employeeId, name, email, position, department, dob, address, contact, gender } = req.body;
+
+    // Save file URL for the profile picture
+    const profilePictureUrl = `http://localhost:5000/public/uploads/${req.file.filename}`;
+
+    // Create new employee object
+    const newEmployee = new Employee({
+      employeeId,
+      name,
+      email,
+      position,
+      department,
+      gender,
+      dob,
+      address,
+      contact,
+      profilePictureUrl
+    });
+
+    // Save employee to the database
+    await newEmployee.save();
+
+    res.status(200).json({ message: 'Employee added successfully', employee: newEmployee });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Error adding employee' });
+  }
+}
+
+const deleteEmployee = async (req, res) => {
+    try {
+      const { employeeId } = req.params; // Get employeeId from URL params
+  
+      // Find and delete the employee by employeeId
+      const deletedEmployee = await Employee.findOneAndDelete({ employeeId });
+  
+      if (!deletedEmployee) {
+        return res.status(404).json({ message: 'Employee not found' });
+      }
+  
+      res.status(200).json({ message: 'Employee deleted successfully', employee: deletedEmployee });
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ message: 'Error deleting employee' });
+    }
+  };
+
+
+module.exports = { getEmployees,searchEmployees, AddEmployee, deleteEmployee};
