@@ -23,10 +23,12 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 // Add New Employee
-router.post('/', upload.single('profilePicture'),Employee.AddEmployee)
-router.delete('/:employeeId',Employee.deleteEmployee)
 router.get('/page',Employee.getEmployees);
 router.get('/search',Employee.searchEmployees);
+router.post('/', upload.single('profilePicture'),Employee.AddEmployee)
+router.put('/:employeeId', upload.single('profilePicture'),Employee.updateEmployee)
+router.delete('/:employeeId',Employee.deleteEmployee)
+router.get('/:employeeId',Employee.getOneEmployee)
 
 
 module.exports = router;

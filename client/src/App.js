@@ -12,6 +12,7 @@ import Attendance from "./pages/Attendance";
 import AddDepartment from "./pages/AddDepartment";
 import UpdateDepartment from "./pages/UpdateDepartment";
 import AddEmployee from "./pages/AddEmployee";
+import UpdateEmployee from "./pages/UpdateEmployee";
 
 function App() {
 
@@ -21,6 +22,7 @@ function App() {
         <Route path="/" element={<AdminPanel/>}/>
         <Route path="/Employee" element={<Employee/>}/>
         <Route path="/Employee/Add" element={<AddEmployee/>}/>
+        <Route path="/Employee/:employeeId" element={<UpdateEmployee/>}/>
         <Route path="/Department" element={<Department/>}/>
         <Route path="/Department/Add" element={<AddDepartment/>}/>
         <Route path="/Department/:id" element={<UpdateDepartment/>}/>

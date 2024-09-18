@@ -106,6 +106,16 @@ const AddEmployee = () => {
         />
 
         <label htmlFor="profilePicture">Profile Picture</label>
+        
+        <div className="profile-file">
+        <input type="text"
+        id="profilePicture"
+        readOnly
+        value={profilePicture ? profilePicture.name : ""}
+        onChange={(e) => setProfilePicture(e.target.files[0])}
+        className='dep-text' 
+        required/>
+
         <input
           type="file"
           id="profilePicture"
@@ -113,8 +123,9 @@ const AddEmployee = () => {
           className='dep-text'
           required
         />
+        </div>
 
-        <label htmlFor="gender">Department</label>
+        <label htmlFor="gender">Gender</label>
         <select
           id="gender"
           value={gender}
@@ -137,7 +148,7 @@ const AddEmployee = () => {
         >
             <option value="">Select Department</option>
             {departments.map((dep) => (
-                <option value={dep.department}>{dep.department}</option>
+                <option value={dep.department} key={dep.department}>{dep.department}</option>
             ))}
         </select>
 

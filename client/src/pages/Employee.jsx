@@ -110,7 +110,7 @@ const Employee = () => {
       <td>{employee.name}</td>
       <td>{employee.email}</td>
       <td>{employee.position}</td>
-      <td><button className="button" >Edit</button></td>
+      <td><button className="button" onClick={()=>navigate(`/Employee/${employee.employeeId}`)} >Edit</button></td>
       <td><button className="button" onClick={(e)=>handleDelete(employee.employeeId)}>Delete</button></td>
     </tr>
   ))
