@@ -35,9 +35,11 @@ const Login = async (req, res) => {
             employee.lockUntil = undefined;
             await employee.save();
 
+            const employeeObject = employee.toObject();
+            delete employeeObject.password;
             // Generate JWT token
             const token = jwt.sign(
-                { id: employee._id, email: employee.email },
+                { id: employee._id, email: employee.email ,name: employee.name, role:employee.role},
                 SECRET_KEY,
                 { expiresIn: '1h' }
             );
@@ -46,7 +48,7 @@ const Login = async (req, res) => {
                 login: true,
                 message: "Login successful",
                 token,
-                employee
+                employee:employeeObject
             });
         } else {
             employee.loginAttempts += 1;

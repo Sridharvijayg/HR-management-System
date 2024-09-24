@@ -1,7 +1,8 @@
 const Employee = require('../Models/EmployeeModel');
-const path = require('path')
-const fs = require('fs')
+const fs =  require('fs');
+const path = require('path');
 
+//Employee Pagination
 const getEmployees = async (req, res) => {
     try {
         const page = parseInt(req.query.page) || 1;
@@ -29,6 +30,7 @@ const getEmployees = async (req, res) => {
     }
 };
 
+//Search employee
 const searchEmployees = async (req, res) => {
     try {
         const { query } = req.query;
@@ -63,38 +65,95 @@ const searchEmployees = async (req, res) => {
     }
 };
 
+// Get one employee by ID
+const getEmployeebyId = async (req, res) => {
+    try{
+      const { employeeId } = req.params
+      const getEmployeebyId = await Employee.findOne({ employeeId });
+      // If employee not present
+      if(!getEmployeebyId) {
+        return res.status(500).json({message: "Employee Not Found!"});
+      }
+      res.status(200).json(getEmployeebyId);
+    }
+    catch{}
+  };
+  
+  //Post employee
+  const addEmployee = async (req, res) => {
+    try {
+      const { employeeId, name, email, position, department, dob, gender, contact, address } = req.body;
+      const profilePictureUrl = `http://localhost:5000/public/uploads/${req.file.filename}`;
+  
+      // Check if employee with the same employeeId already exists
+      const existingEmployee = await Employee.findOne({ employeeId });
+  
+      if (existingEmployee) {
+        return res.status(400).json({ message: "Employee ID already exists" });
+      }
+  
+      // Create new employee object
+      const newEmployee = new Employee({
+        employeeId, name, email, position, department, dob, gender, contact, address, profilePictureUrl
+      });
+  
+      // Save employee details to the database
+      await newEmployee.save();
+      res.status(200).json({ message: "Employee added successfully!" });
+    } catch (err) {
+      console.log(err);
+      res.status(500).json({ message: "Error adding employee" });
+    }
+  };
+  
+  module.exports = { addEmployee };
+  
+  
+  //Update employee
+  const updateEmployee = async (req,res) => {
+      try{
+        const { employeeId } = req.params;
 
-const AddEmployee = async (req, res) => {
-  try {
-    const { employeeId, name, email, position, department, dob, address, contact, gender } = req.body;
+        const { name, email, position, department, dob, gender, contact, address} = req.body;
+        // check if profile picture was uploaded or not
+        let profilePictureUrl = req.file ? `http://localhost:5000/public/uploads/${req.file.filename}` : undefined;
+        //Find employee by ID
+        const updateEmployee = await Employee.findOne({ employeeId });
+        // If employee id is wrong
+        if(!updateEmployee) {
+            return res.status(404).json({message: "Employee Not Found!!"})
+        }
+        //Update employee details
+        updateEmployee.name = name || updateEmployee.name;
+        updateEmployee.email = email || updateEmployee.email;
+        updateEmployee.position = position || updateEmployee.position;
+        updateEmployee.department = department || updateEmployee.department;
+        updateEmployee.dob = dob || updateEmployee.dob;
+        updateEmployee.gender = gender || updateEmployee.gender;
+        updateEmployee.contact = contact || updateEmployee.contact;
+        updateEmployee.address = address || updateEmployee.address;
 
-    // Save file URL for the profile picture
-    const profilePictureUrl = `http://localhost:5000/public/uploads/${req.file.filename}`;
+        if(profilePictureUrl){
+            if(updateEmployee.profilePictureUrl){
+                const oldFilePath = path.join(__dirname, '..', profilePictureUrl)
+                if(fs.existsSync(oldFilePath)){
+                    fs.unlinkSync(oldFilePath);
+                }
+            }
+            updateEmployee.profilePictureUrl = profilePictureUrl;
+        }
+        //Save updated employee
+        await updateEmployee.save();
+        //Success Message
+        res.status(200).json({message: "Employee details updated successfully!!"})
+      }
+      catch(err) {
+        console.log(err);
+        res.status(500).json({message: 'Error updating employee!'})
+      }
+  };
 
-    // Create new employee object
-    const newEmployee = new Employee({
-      employeeId,
-      name,
-      email,
-      position,
-      department,
-      gender,
-      dob,
-      address,
-      contact,
-      profilePictureUrl
-    });
-
-    // Save employee to the database
-    await newEmployee.save();
-
-    res.status(200).json({ message: 'Employee added successfully', employee: newEmployee });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: 'Error adding employee' });
-  }
-}
-
+  //Delete employee
 const deleteEmployee = async (req, res) => {
     try {
       const { employeeId } = req.params; // Get employeeId from URL params
@@ -108,71 +167,10 @@ const deleteEmployee = async (req, res) => {
   
       res.status(200).json({ message: 'Employee deleted successfully', employee: deletedEmployee });
     } catch (err) {
-      console.error(err);
-      res.status(500).json({ message: 'Error deleting employee' });
-    }
-  };
-
-const getOneEmployee = async (req, res) => {
-  try {
-    const { employeeId } = req.params; // Get the employeeId from the URL parameters
-    const employee = await Employee.findOne({ employeeId });
-
-    if (!employee) {
-      return res.status(404).json({ message: 'Employee not found' });
-    }
-
-    res.status(200).json(employee);
-  } catch (error) {
-    console.error('Error fetching employee:', error);
-    res.status(500).json({ message: 'Error fetching employee' });
-  }
-};
-
-const updateEmployee = async (req, res) => {
-    try {
-      const { employeeId } = req.params; // Get the employeeId from the URL parameters
-      const { name, email, position, department, dob, address, contact, gender } = req.body;
-  
-      // Check if a file was uploaded
-      let profilePictureUrl = req.file ? `http://localhost:5000/public/uploads/${req.file.filename}` : undefined;
-  
-      // Find the employee by employeeId
-      const employee = await Employee.findOne({ employeeId });
-  
-      if (!employee) {
-        return res.status(404).json({ message: 'Employee not found' });
-      }
-  
-      // Update employee details
-      employee.name = name || employee.name;
-      employee.email = email || employee.email;
-      employee.position = position || employee.position;
-      employee.department = department || employee.department;
-      employee.dob = dob || employee.dob;
-      employee.address = address || employee.address;
-      employee.contact = contact || employee.contact;
-      employee.gender = gender || employee.gender;
-      if (profilePictureUrl) {
-        // Remove the old profile picture if it exists
-        if (employee.profilePictureUrl) {
-          const oldFilePath = path.join(__dirname, '..', employee.profilePictureUrl);
-          if (fs.existsSync(oldFilePath)) {
-            fs.unlinkSync(oldFilePath);
-          }
-        }
-        employee.profilePictureUrl = profilePictureUrl;
-      }
-  
-      // Save updated employee
-      await employee.save();
-  
-      res.status(200).json({ message: 'Employee updated successfully', employee });
-    } catch (error) {
-      console.error('Error updating employee:', error);
-      res.status(500).json({ message: 'Error updating employee' });
+        console.log(err);
+        res.status(500).json({message: "Error Deleting Employee!"});
     }
   };
   
-
-module.exports = { getEmployees,searchEmployees, AddEmployee, deleteEmployee, getOneEmployee, updateEmployee};
+  
+  module.exports = { getEmployees, searchEmployees, getEmployeebyId, addEmployee, updateEmployee, deleteEmployee };

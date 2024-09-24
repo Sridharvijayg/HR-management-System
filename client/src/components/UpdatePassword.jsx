@@ -46,6 +46,7 @@ const UpdatePassword = () => {
       
 
   return (
+    <div  className='login-box'>
     <form>
         <h2 className='login'>New Passsowrd</h2>
         {msg && <Msg />}
@@ -79,6 +80,7 @@ const UpdatePassword = () => {
 
         <button type='submit' onClick={(e)=>handleUpdatePassword(e)}>Submit</button>
       </form>
+      </div>
   )
 }
 

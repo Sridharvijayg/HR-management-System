@@ -7,12 +7,10 @@ import MyContextProvider from './context/MyContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
     <BrowserRouter>
     <MyContextProvider>
         <App />
     </MyContextProvider>
     </BrowserRouter>
-  </React.StrictMode>
 );
 

@@ -68,9 +68,10 @@ const UpdateDepartment = () => {
   };
 
   return (
-    <div className="content">
-      <SideNav />
+    <div className='Grid-box'>   
+    <SideNav />
       <Nav title="Update Department" />
+    <main>
       <div className="add-Department">
         <form>
           <h2>Update Department</h2>
@@ -89,8 +90,8 @@ const UpdateDepartment = () => {
           </button>
         </form>
       </div>
-    </div>
-  );
+      </main>
+      </div>  );
 };
 
 export default UpdateDepartment;

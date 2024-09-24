@@ -39,6 +39,7 @@ const ForgetPasswordForm = () => {
     }
 
   return (
+    <div  className='login-box'>
     <form>
         <h2 className='login'>Login</h2>
         {msg && <Msg />}
@@ -55,6 +56,7 @@ const ForgetPasswordForm = () => {
         </div>
         <button type='submit' onClick={(e)=> handleReset(e)}>Send OTP</button>
       </form>
+      </div>
   )
 }
 

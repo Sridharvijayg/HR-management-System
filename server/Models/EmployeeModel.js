@@ -16,26 +16,32 @@ const mongoose = require('mongoose')
         },
         password: {
             type: String,
-            default:"password" 
+            default: "$2a$10$Ozg5Kjca5EhyLzsf4Y5TF.IMrCX7LNElRb6/XpGRoowGhud3kXCnu" //password:"enchhash"
         },
         position: {
-            type:String,
+            type:String
+            // required: true
         },
         department: {
-            type:String,
+            type:String
+            // required: true
         },
         dob: {
-            type:Date,
+            type:Date
+            // required: true
         },
         contact:{
-            type:String,
+            type:String
+            // required: true
         },
         gender: {
-            type: String,
-            enum: ['Male', 'Female', 'Others'],
+            type: String, 
+            enum: ['Male', 'Female', 'Others']
+            // required: true
         },
         address: {
-            type:String,
+            type:String
+            // required: true
         },
         profilePictureUrl: {
             type:String

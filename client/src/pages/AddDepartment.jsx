@@ -39,9 +39,10 @@ const AddDepartment = () => {
     }
   
     return (
-    <div className='content'>
-     <SideNav/>
+      <div className='Grid-box'>
+      <SideNav/>
      <Nav title='Add Department'/>
+    <main>
      <div className="add-Department">
      <form>
         <h2>Add Department</h2>
@@ -54,7 +55,8 @@ const AddDepartment = () => {
             <button className='button' onClick={(e)=>handledepartment(e)}>Add Department</button>
     </form>
     </div>
-    </div>
+    </main>
+     </div>
 
   )
 }

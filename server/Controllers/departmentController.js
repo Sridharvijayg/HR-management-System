@@ -75,6 +75,9 @@ const SearchDepartment = async(req, res) => {
         return res.status(400).json({ message: 'Please provide a search term.' });
       }
       const departments = await Department.find({ department: new RegExp(name, 'i') });
+      if (departments.length === 0) {
+        return res.status(404).json({ message: 'No Departments found' });
+    }
       res.status(200).json(departments);
     } catch (error) {
       res.status(500).json({ message: error.message });

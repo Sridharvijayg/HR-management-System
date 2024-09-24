@@ -5,7 +5,7 @@ import {Link, useNavigate} from 'react-router-dom'
 
 const LoginForm = () => {
 
-    const {msg,email,setEmail,password,setPassword,isVisible,setIsVisible,setMsg,setEmployee,setLogin,setToken} = useContext(MyContext);
+    const {msg,email,setEmail,password,setPassword,isVisible,setIsVisible,setMsg,setEmployee,setLogin,setToken,user,setUser,isAdmin,setIsAdmin} = useContext(MyContext);
     const navigate = useNavigate();
 
     const handleLogin = async (e) => {
@@ -36,7 +36,12 @@ const LoginForm = () => {
             await setMsg(data.message);
             await setEmployee(data.employee);
             await setLogin(data.login);
-            navigate('/');
+            if(data.employee.role == 'admin'){
+            setIsAdmin(true);
+            navigate('/admin');
+            }else{
+              navigate('/emp')
+            }
             console.log(data);
           }
           
@@ -49,6 +54,7 @@ const LoginForm = () => {
       
 
   return (
+    <div  className='login-box'>
     <form>
     <h2 className='login'>Login</h2>
     {msg && <Msg />}
@@ -90,6 +96,7 @@ const LoginForm = () => {
     <button type='submit' onClick={(e)=>handleLogin(e)}>Submit</button>
     <Link to='/login/reset' className='links'>forget Password ?</Link>
   </form>
+  </div>
   )
 }
 

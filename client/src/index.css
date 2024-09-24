@@ -73,6 +73,7 @@ form button:hover{
 }
 label{
   font-size: 18px;
+  color:black;
 }
 .Msg-box{
   width: 100%;
@@ -84,12 +85,19 @@ label{
   color: white;
   font-weight: 600;
 }
-.side-nav{
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 300px;
+
+/* ---------------------------------------- */
+.Grid-box{
+  display: grid;
+  width: 100%;
   height: 100vh;
+  grid-template-columns: 260px 1fr 1fr 1fr;
+  grid-template-rows: 80px 1fr;
+  grid-template-areas: 'sidebar nav nav nav'
+                       'sidebar main main main ';
+}
+.side-nav{
+  grid-area: sidebar;
   background-color: rgb(19, 3, 49);
  box-shadow: 0px 0px 20px black;
 }
@@ -98,10 +106,10 @@ label{
   justify-content: start;
   align-items: center;
   flex-direction: column;
-  gap: 20px;
+  
 }
 .side-nav .nav-link{
-  padding: 15px 50px;
+  padding: 20px 50px;
   text-decoration: none;
   text-align: start;
   width: 100%;
@@ -117,14 +125,17 @@ label{
 .nav-link:hover{
   background-color: rgb(50, 50, 78);
 }
+.nav-link.active{
+  background-color: rgb(50, 50, 78);
+  border-left: 3px solid rgb(27, 160, 212)
+}
 .logo{
   padding: 30px;
   color: white;
   font-size: 25px;
 }
 nav{
-  width: 100%;
-  height: 80px;
+  grid-area: nav;
   background-color: rgb(19, 3, 49);
   display: flex;
   justify-content: space-between;
@@ -132,10 +143,11 @@ nav{
   font-size: 25px;
   color: white;
 }
-.content{
-  width: calc(100% - 300px);
-  margin-left: 300px;
-  min-height: 100vh;
+main{
+  grid-area: main;
+  width: 100%;
+  overflow-y: scroll;
+  
 }
 
 .add-employee{
@@ -172,21 +184,31 @@ nav{
 }
 .Admin-info{
   display: flex;
-  justify-content: start;
+  justify-content: space-between;
   align-items: start;
   gap: 50px;
-  padding: 100px;
+  padding: 50px;
 }
 .info-box{
-  border: 1px solid Black;
-  background-color: rgb(235, 235, 161);
-  border-radius: 20px;
-  padding: 40px;
+  height: 200px;
+  text-align: center;
+  flex: 1;
+  border-radius:20px;
+  padding: 30px;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   gap: 20px;
+  background-image: radial-gradient(circle, rgba(58, 99, 255, 1), rgba(42, 179, 252, 1) 90%);
+  box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.5), inset 0px -3px 6px -2px rgba(0, 0, 0, 0.3);
+}
+.info-box h1{
+  font-size: 20px;
+  font-family:cursive;
+}
+.info-box h2{
+  font-size: 25px;
 }
 .profile-file{
   display: flex;
@@ -201,16 +223,73 @@ nav{
   height: auto;
 }
 
+.approved{
+  padding: 5px 10px;
+  background-color: rgb(21, 182, 21);
+  color: white;
+  border-radius: 15px;
+}
+.pending{
+  padding: 5px 10px;
+  background-color: rgb(182, 21, 21);
+  color: white;
+  border-radius: 15px;
+
+}
+
+.employee-detail{
+  padding: 20px;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+}
+.employee-detail img{
+  border-radius: 50%;
+}
+.employee-detail p{
+  font-size: 20px;
+
+}
 
 
 
 
 
 
+.loading{
+  z-index:999;
+  position: absolute;
+  top: 0;left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: black;
+  opacity: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.loading span{
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border-top: 5px solid white;
+  border-bottom: 5px solid white;
+  border-right: 5px solid white;
+  border-left: 5px solid transparent;
+  animation:spin 1s ease-in-out infinite ;
+}
 
-
-
-
+@keyframes spin {
+  0%{
+    transform: rotate(0deg);
+  }
+  100%{
+    transform: rotate(360deg);
+  }
+  
+}
 
 
 

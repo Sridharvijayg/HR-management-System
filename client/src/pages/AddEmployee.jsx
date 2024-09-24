@@ -28,7 +28,7 @@ const AddEmployee = () => {
     formData.append('name', name);
     formData.append('email', email);
     formData.append('position', position);
-    formData.append('profilePicture', profilePicture);
+    formData.append('profilePictureUrl', profilePicture);
     formData.append('department', department);
     formData.append('dob', dob);
     formData.append('address', address);
@@ -54,9 +54,10 @@ const AddEmployee = () => {
   };
 
   return (
-    <div className="content">
-      <SideNav />
+    <div className='Grid-box'>
+    <SideNav />
       <Nav title="Add Employee" />
+    <main>
       <div className="add-Department">
       <form onSubmit={handleAddEmployee}>
         <h2>Add Employee</h2>
@@ -186,6 +187,7 @@ const AddEmployee = () => {
         <button type='submit' className='button' onClick={(e)=>handleAddEmployee(e)}>Create Employee</button>
       </form>
     </div>
+    </main>
     </div>
   );
 };

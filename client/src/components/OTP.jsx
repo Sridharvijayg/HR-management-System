@@ -29,6 +29,7 @@ const OTP = () => {
     }
 
   return (
+    <div  className='login-box'>
     <form>
         <h2 className='login'>Enter OTP</h2>
         {msg && <Msg />}
@@ -45,6 +46,7 @@ const OTP = () => {
         </div>
         <button type='submit' onClick={(e)=>handleVerify(e)}>Verify</button>
       </form>
+      </div>
   )
 }
 

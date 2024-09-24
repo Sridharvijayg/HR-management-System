@@ -3,13 +3,14 @@ import SideNav from '../components/SideNav'
 import Nav from '../components/Nav'
 import { useNavigate } from 'react-router-dom'
 import { MyContext } from '../context/MyContext'
+import Loading from '../components/Loading'
 
 const Department = () => {
     const [refreshKey, setRefreshKey] = useState(0);
     const navigate = useNavigate();
 
     const [search,setSearch]= useState('');
-    const {departments,setDepartments}= useContext(MyContext);
+    const {departments,setDepartments,isLoading,setIsLoading}= useContext(MyContext);
 
     const refresh = () => {
       setRefreshKey(refreshKey+1);
@@ -40,14 +41,14 @@ const Department = () => {
     useEffect(()=>{
       const fetchData = async()=>{
           try{
+            setIsLoading(true)
             const response = await fetch('http://localhost:5000/api/Department')
-          const data = await response.json();
-          setDepartments(data);
-          console.log("fetching");
-          
+            const data = await response.json();
+            setDepartments(data);
           }catch(err){
             console.log(err);
-            
+          }finally{
+            setIsLoading(false)
           }
       }
       fetchData();
@@ -74,9 +75,11 @@ const Department = () => {
     },[search]);
   
     return (
-    <div className='content'>
-     <SideNav/>
+      <div className='Grid-box'>
+       {isLoading &&  <Loading/>}
+      <SideNav/>
      <Nav title='Department'/>
+    <main>
      <div className="add-employee">
         <input type="text" 
         value={search} 
@@ -107,7 +110,7 @@ const Department = () => {
       <td>{dep.department}</td>
       <td>{new Date(dep.createdAt).toLocaleDateString()}</td> 
       <td>{new Date(dep.createdAt).toLocaleTimeString()}</td> 
-      <td><button className="button" onClick={() => navigate(`/Department/${dep._id}`)}>Update</button></td>
+      <td><button className="button" onClick={() => navigate(`/Department/${dep._id}`)}>Edit</button></td>
       <td><button className="button" onClick={() => handleDeleteDepartment(dep._id)}>Delete</button></td>
     </tr>
   ))
@@ -116,6 +119,7 @@ const Department = () => {
         </tbody>
       </table>
     </div>
+    </main>
     </div>
   )
 }
