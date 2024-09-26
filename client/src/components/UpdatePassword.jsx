@@ -33,7 +33,7 @@ const UpdatePassword = () => {
           }
           
           setMsg(data.message);
-          navigate('/login')
+          navigate('/')
           
         }else{
         setMsg('Passwords does not match');

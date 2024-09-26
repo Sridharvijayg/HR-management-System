@@ -74,7 +74,7 @@ const ELeave = () => {
                             <th>No. of Days</th>
                             <th>Remaining Days</th>
                             <th>Status</th>
-                            <th>update</th>
+                            <th>Delete</th>
                         </tr>
                     </thead>
                     <tbody>

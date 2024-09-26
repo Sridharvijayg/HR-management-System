@@ -61,7 +61,7 @@ const Attendance = () => {
       {isLoading && <Loading />}
       <main>
         <div className="add-employee">
-          <button className='button' onClick={downloadExcel}>Export CSV</button>
+          <button className='button' onClick={downloadExcel}>Download Report</button>
         </div>
         <div className="table-responsive">
           <table className="table table-dark table-striped table-bordered" id="attendance-table">

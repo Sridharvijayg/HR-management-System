@@ -24,6 +24,7 @@ const Department = () => {
           const PostOption = {
               method:"DELETE"
           }
+          setIsLoading(true)
           const response = await fetch(`http://localhost:5000/api/Department/${id}`,PostOption)
           const data = await response.json();
           if(!response.ok){
@@ -32,8 +33,11 @@ const Department = () => {
             alert(data.message);
             const after = departments.filter(dep => dep._id !== id);
             setDepartments(after);
+            setIsLoading(false)
       }catch(err){
           alert(err)
+      }finally{
+        setIsLoading(false);
       }
       }
     }
@@ -104,7 +108,7 @@ const Department = () => {
               </tr>            
         </thead>
         <tbody>
-        {
+        {departments && departments.length>0 ?
   departments.map((dep) => (
     <tr key={dep._id}>
       <td>{dep.department}</td>
@@ -113,7 +117,7 @@ const Department = () => {
       <td><button className="button" onClick={() => navigate(`/Department/${dep._id}`)}>Edit</button></td>
       <td><button className="button" onClick={() => handleDeleteDepartment(dep._id)}>Delete</button></td>
     </tr>
-  ))
+  )):<tr><td colSpan={5}>No data Found</td></tr>
 }
 
         </tbody>

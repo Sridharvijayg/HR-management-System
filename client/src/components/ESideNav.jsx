@@ -4,6 +4,7 @@ import { FaHome } from "react-icons/fa";
 import { FaUserFriends } from "react-icons/fa";
 import { FaPeopleGroup } from "react-icons/fa6";
 import { FaCalendarAlt } from "react-icons/fa";
+import CheckInOutToggle from './CheckInOutToggle';
 
 const SideNav = () => {
   const [activeLink, setActiveLink] = useState("");
@@ -24,6 +25,9 @@ const SideNav = () => {
     <div className='side-nav'>
       <div className="title">
         <h3 className="logo">ST Solutions</h3>
+      </div>
+      <div className="check-in-out">
+        <CheckInOutToggle/>
       </div>
       <div className="nav-links">
         <Link 

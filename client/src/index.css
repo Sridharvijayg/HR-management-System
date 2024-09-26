@@ -250,9 +250,14 @@ main{
 }
 .employee-detail p{
   font-size: 20px;
-
 }
-
+.check-in-out{
+  width: 100%;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  padding: 20px;
+}
 
 
 

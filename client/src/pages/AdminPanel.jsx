@@ -25,9 +25,8 @@ const AdminPanel = () => {
         </div>
         <div className="info-box">
           <h1>Attendance Percentage</h1>
-          <h2>{attendance}%</h2>
+          <h2>{attendance>0 ? attendance : 0 }%</h2>
         </div>
-        
       </div>
       </main>
     </div>

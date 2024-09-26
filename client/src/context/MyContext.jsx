@@ -33,7 +33,7 @@ const MyContextProvider = ({children}) => {
             const data1 = await response1.json();
             setDepartments(data1);
             const response2 = await fetch('http://localhost:5000/api/Attendance/attendance-report')
-            const data2 = await response2.json();
+            const data2 = await response2.json(); 
             if(data2.attendanceRecords.length){
               setAttendance(((Number(data2.attendanceRecords.length) / Number(data.employees.length)) * 100).toFixed(2));
             }else{

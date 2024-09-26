@@ -12,26 +12,19 @@ const RaiseLeave = () => {
     const navigate = useNavigate();
     const { isLoading, setIsLoading, employee } = useContext(MyContext);
 
-    
-
-    // Helper function to convert date to 'YYYYMMDD' format for API submission
-    const formatDateForAPI = (date) => {
-        const [year, month, day] = date.split('-');
-        return `${year}${month}${day}`;
-    };
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         
-        // Prepare the payload for submission
         const leaveData = {
             employeeId: employee.employeeId,
             name: employee.name,
-            fromDate: formatDateForAPI(fromDate),  // Convert date to yyyymmdd format
-            toDate: formatDateForAPI(toDate),      // Convert date to yyyymmdd format
+            fromDate: fromDate,  
+            toDate: toDate,      
             reason,
         };
         setIsLoading(true);
+        console.log(leaveData);
+        
         try {
             const response = await fetch('http://localhost:5000/api/leaves/raise-leave', {
                 method: 'POST',
@@ -77,7 +70,7 @@ const RaiseLeave = () => {
                             type="date" 
                             id="fromDate" 
                             value={fromDate} 
-                            onChange={(e) => setFromDate((e.target.value).split('T')[0])} 
+                            onChange={(e) => setFromDate(e.target.value)} 
                             required 
                             className='dep-text' 
                         />
@@ -87,7 +80,7 @@ const RaiseLeave = () => {
                             type="date" 
                             id="toDate" 
                             value={toDate} 
-                            onChange={(e) => setToDate((e.target.value).split('T')[0])} 
+                            onChange={(e) => setToDate(e.target.value)} 
                             required 
                             className='dep-text' 
                         />
