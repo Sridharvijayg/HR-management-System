@@ -30,11 +30,11 @@ function App() {
         <Route path="/login/reset" element={<ForgetPasswordForm />} />
         <Route path="/login/otp" element={<OTP />} />
         <Route path="/login/update-password" element={<UpdatePassword />} />
-        <Route path="/admin" element={isAdmin?<AdminPanel/>:<LoginForm/>}/>
+        <Route path="/admin" element={isAdmin && login ?<AdminPanel/>:<LoginForm/>}/>
         <Route path="/Employee" element={isAdmin?<Employee/>:<LoginForm/>}/>
         <Route path="/Employee/Add" element={<AddEmployee/>}/>
         <Route path="/Employee/:employeeId" element={<UpdateEmployee/>}/>
-        <Route path="/Department" element={isAdmin?<Department/>:<LoginForm/>}/>
+        <Route path="/Department" element={isAdmin && login?<Department/>:<LoginForm/>}/>
         <Route path="/Department/Add" element={<AddDepartment/>}/>
         <Route path="/Department/:id" element={<UpdateDepartment/>}/>
         <Route path="/Leave" element={<Leave/>}/>

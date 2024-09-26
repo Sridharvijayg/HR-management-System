@@ -63,7 +63,7 @@ const Leave = () => {
                         </tr>
                     </thead>
                     <tbody>
-                      { leaves ?
+                      { leaves && leaves.length>0 ?
                         leaves.map((leave) => (
                             <tr key={leave._id}>
                             <td>{leave.employeeId}</td>
@@ -78,7 +78,7 @@ const Leave = () => {
                         ))
                         :
                         <tr>
-                            <td colspan={8}>No Data found</td>
+                            <td colSpan={8}>No Data found</td>
                         </tr>
                       }
                     </tbody>
