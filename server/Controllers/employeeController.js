@@ -76,7 +76,10 @@ const getEmployeebyId = async (req, res) => {
       }
       res.status(200).json(getEmployeebyId);
     }
-    catch{}
+    catch(err){
+      console.log(err);
+      res.status(500).json({ message: "Error getting employee" });
+    }
   };
   
   //Post employee

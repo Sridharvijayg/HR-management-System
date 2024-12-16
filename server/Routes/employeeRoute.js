@@ -23,7 +23,7 @@ const storage = multer.diskStorage({
 
 router.get('/page',Employee.getEmployees); // Get employee in pagination
 router.get('/search',Employee.searchEmployees); // Search employee
-router.get('/:employeeId', Employee.getEmployeebyId); //Get one employee by Id
+router.get('/view/:employeeId', Employee.getEmployeebyId); //Get one employee by Id
 router.post('/', upload.single('profilePictureUrl'),Employee.addEmployee); // Add new employee
 router.put('/:employeeId', upload.single('profilePictureUrl'),Employee.updateEmployee) // Update employee details
 router.delete('/:employeeId', Employee.deleteEmployee); // Delete employee

@@ -1,23 +1,28 @@
 import React, { useContext } from "react";
-import {Routes,Route} from 'react-router-dom'
-import LoginForm from "./components/LoginForm";
-import ForgetPasswordForm from "./components/ForgetPasswordForm";
-import OTP from "./components/OTP";
-import UpdatePassword from "./components/UpdatePassword";
-import AdminPanel from "./pages/AdminPanel";
-import Employee from "./pages/Employee";
-import Department from "./pages/Department";
-import Attendance from "./pages/Attendance";
-import AddDepartment from "./pages/AddDepartment";
-import UpdateDepartment from "./pages/UpdateDepartment";
-import AddEmployee from "./pages/AddEmployee";
-import UpdateEmployee from "./pages/UpdateEmployee";
-import Leave from "./pages/Leave";
-import EmployeePanel from "./pages/EmployeePanel";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import {Routes,Route} from 'react-router-dom';
 import { MyContext } from "./context/MyContext";
-import ELeave from "./pages/ELeave";
-import RaiseLeave from "./pages/RaiseLeae";
-import LeaveStatus from "./pages/LeaveStatus";
+import LoginForm from "./components/Login/LoginForm";
+import ForgetPasswordForm from "./components/Login/ForgetPasswordForm";
+import OTP from "./components/Login/OTP";
+import UpdatePassword from "./components/Login/UpdatePassword";
+import AdminPanel from "./pages/Dashboards/Dashboard";
+import Employee from "./pages/Employee/Employee";
+import AddEmployee from "./pages/Employee/AddEmployee";
+import UpdateEmployee from "./pages/Employee/UpdateEmployee";
+import ViewEmployee from "./pages/Employee/ViewEmployee";
+import Department from "./pages/Department/Department";
+import AddDepartment from "./pages/Department/AddDepartment";
+import UpdateDepartment from "./pages/Department/UpdateDepartment";
+import Leave from "./pages/LeavePage/Leave";
+import LeaveStatus from "./pages/LeavePage/LeaveStatus";
+import Attendance from "./pages/Attendance/Attendance";
+import EmployeePanel from "./pages/Dashboards/EmployeePanel";
+import ELeave from "./pages/LeavePage/ELeave";
+import RaiseLeave from "./pages/LeavePage/RaiseLeae";
+import NotAvailable from "./components/NotAvailable";
+import Calender from "./pages/Calender/Calender";
+import EmployeeCalender from "./pages/Calender/EmployeeCalender";
 
 function App() {
 
@@ -34,6 +39,7 @@ function App() {
         <Route path="/Employee" element={isAdmin?<Employee/>:<LoginForm/>}/>
         <Route path="/Employee/Add" element={<AddEmployee/>}/>
         <Route path="/Employee/:employeeId" element={<UpdateEmployee/>}/>
+        <Route path="/employee/view/:employeeId" element={<ViewEmployee/>}/>
         <Route path="/Department" element={isAdmin && login?<Department/>:<LoginForm/>}/>
         <Route path="/Department/Add" element={<AddDepartment/>}/>
         <Route path="/Department/:id" element={<UpdateDepartment/>}/>
@@ -43,6 +49,9 @@ function App() {
         <Route path="/emp" element={login?<EmployeePanel/>:<LoginForm/>}/>
         <Route path="/ELeave" element={login?<ELeave/>:<LoginForm/>}/>
         <Route path="/raise-Leave" element={login?<RaiseLeave/>:<LoginForm/>}/>
+        <Route path="/calender" element={login?<Calender/>:<LoginForm/>}/>
+        <Route path="/employeecalender" element={login?<EmployeeCalender/>:<LoginForm/>}/>
+        <Route path="/not-available" element={login?<NotAvailable/>:<LoginForm/>}/>
       </Routes>
       
     </div>

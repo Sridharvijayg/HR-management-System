@@ -1,51 +1,54 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { FaHome } from "react-icons/fa";
-import { FaUserFriends } from "react-icons/fa";
-import { FaPeopleGroup } from "react-icons/fa6";
-import { FaCalendarAlt } from "react-icons/fa";
-import CheckInOutToggle from './CheckInOutToggle';
+import React, { useContext } from 'react';
+import '../styles/sidebar.css'
+import { Link } from 'react-router-dom';
+import { FaRegCircleUser } from "react-icons/fa6";
+import { TbLayoutGrid } from "react-icons/tb";
+import { LuCalendarDays } from "react-icons/lu";
+import { MyContext } from '../context/MyContext';
+import CheckInOutToggle from '../components/CheckInOutToggle'
+
 
 const SideNav = () => {
-  const [activeLink, setActiveLink] = useState("");
-  const location = useLocation();
 
-  useEffect(() => {
-    // Set the active link based on the current path
-    if (location.pathname === '/emp') {
-      setActiveLink('emp');
-    } else if (location.pathname === '/EAttendance') {
-      setActiveLink('EAttendance');
-    } else if (location.pathname === '/ELeave') {
-      setActiveLink('ELeave');
-    }
-  }, [location.pathname]); // Runs on path change
+  const {activeLink,setActiveLink,isOpen} = useContext(MyContext);
+
+  const handleLinkClick = (e,link) => {
+    setActiveLink(link); 
+  };
 
   return (
-    <div className='side-nav'>
-      <div className="title">
-        <h3 className="logo">ST Solutions</h3>
+    <aside className={isOpen?"active":""}>
+      <div className='title'>
+        <p className='text-success'>HRMS</p>
       </div>
       <div className="check-in-out">
-        <CheckInOutToggle/>
+        <CheckInOutToggle />
       </div>
-      <div className="nav-links">
-        <Link 
-          to='/emp' 
-          className={`nav-link ${activeLink === 'emp' ? "active" : ""}`}
+      <div className='nav-links'>
+        <Link
+          to='/emp'
+          className={`nav-link ${activeLink === 'dashboard' ? 'active' : ''}`}
+          onClick={(e) => handleLinkClick(e,'dashboard')}
         >
-          <FaHome /> Home
+        <FaRegCircleUser className="icon" /> Profile
         </Link>
-
-        <Link 
-          to='/ELeave' 
-          className={`nav-link ${activeLink === 'ELeave' ? "active" : ""}`} 
+        <Link
+          to='/ELeave'
+          className={`nav-link ${activeLink === 'eleave' ? 'active' : ''}`}
+          onClick={(e) => handleLinkClick(e,'eleave')}
         >
-          <FaPeopleGroup /> Leave
+          <TbLayoutGrid className="icon" /> Leave
         </Link>
+        <Link
+            to='/employeecalender'
+            className={`nav-link ${activeLink === 'calendar' ? 'active' : ''}`}
+            onClick={(e) => handleLinkClick(e,'calendar')}
+          >
+            <LuCalendarDays className="icon" /> Calendar
+          </Link>
       </div>
-    </div>
+    </aside>
   );
-}
+};
 
 export default SideNav;

@@ -3,10 +3,17 @@ const CalendarEvent = require('../Models/CalenderModel');
 // Add new event
 exports.addEvent = async (req, res) => {
   try {
-    const { date, eventName, description } = req.body;
+    const { startDate, endDate, title, description } = req.body;
+
+    // Check if start date is earlier than end date
+    // if (new Date(startDate) > new Date(endDate)) {
+    //   return res.status(400).json({ message: 'Start date must be earlier than end date' });
+    // }
+
     const newEvent = new CalendarEvent({
-      date,
-      eventName,
+      startDate,
+      endDate,
+      title,
       description
     });
 
@@ -17,10 +24,21 @@ exports.addEvent = async (req, res) => {
   }
 };
 
-// Get all events
+// Get all events (with optional date range filtering)
 exports.getAllEvents = async (req, res) => {
   try {
-    const events = await CalendarEvent.find();
+    const { startDate, endDate } = req.query; // Optional date range filter
+
+    // If a date range is provided, find events within that range
+    let filter = {};
+    if (startDate && endDate) {
+      filter = {
+        startDate: { $gte: new Date(startDate) },
+        endDate: { $lte: new Date(endDate) }
+      };
+    }
+
+    const events = await CalendarEvent.find(filter).sort({ startDate: 1 });
     res.status(200).json(events);
   } catch (err) {
     res.status(500).json({ message: 'Error fetching events', error: err.message });
@@ -43,13 +61,19 @@ exports.getEventById = async (req, res) => {
 // Update event by ID
 exports.updateEvent = async (req, res) => {
   try {
-    const { date, eventName, description } = req.body;
+    const { startDate, endDate, title, description } = req.body;
+
+    // Check if start date is earlier than end date
+    if (new Date(startDate) > new Date(endDate)) {
+      return res.status(400).json({ message: 'Start date must be earlier than end date' });
+    }
+
     const updatedEvent = await CalendarEvent.findByIdAndUpdate(
       req.params.id,
-      { date, eventName, description },
+      { startDate, endDate, title, description },
       { new: true }
     );
-    
+
     if (!updatedEvent) {
       return res.status(404).json({ message: 'Event not found' });
     }

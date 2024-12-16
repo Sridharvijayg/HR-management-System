@@ -1,19 +1,33 @@
 const mongoose = require('mongoose');
 
 const calendarEventSchema = new mongoose.Schema({
-  date: {
+  startDate: {
     type: Date,
-    required: true
+   
   },
-  eventName: {
+  endDate: {
+    type: Date,
+   
+  },
+  title: {
     type: String,
-    required: true
+    
   },
   description: {
     type: String,
-    required: true
+   
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now
+  },
+  updatedAt: {
+    type: Date,
+    default: Date.now
   }
 });
+
+
 
 const CalendarEvent = mongoose.model('CalendarEvent', calendarEventSchema);
 

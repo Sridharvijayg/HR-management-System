@@ -1,26 +1,30 @@
-import React, { useContext } from 'react'
-import { MyContext } from '../context/MyContext'
-import { useNavigate } from 'react-router-dom';
-
-const Nav = ({title}) => {
-
-    const {login,employee,setLogin} = useContext(MyContext);
-    const navigate = useNavigate();
-
-  return (
-    <nav>
-        <h3>{title}</h3>
-        {!login && <div>
-            <button className='button' onClick={()=>navigate('/Login')}>Login</button>    
-        </div>}
-        {login && <div className='logout'>
-          <h5> {employee.name}</h5>
-          <button className="button" onClick={()=>setLogin(false)}>Logout</button>
-          </div>}
-
-
-    </nav>
-  )
-}
-
-export default Nav
+  import React, { useContext } from 'react'
+  import '../styles/nav.css'
+  import logo from '../assets/image/logo.jpg'
+  import { FaRegBell } from "react-icons/fa6";
+  import { MdMenu } from "react-icons/md";
+  import { MyContext } from '../context/MyContext';
+  
+  const Nav = () => {
+    const {employee,handleToggle} = useContext(MyContext);
+  
+    return (
+      <nav>
+          <div>
+            <MdMenu className='toggled-icon' onClick={handleToggle}/>
+            <span className='fw-bold fs-4 text-secondary nav-title'></span>
+          </div>
+          <div className='icons'>
+            <div className="img-container">
+                <img src={employee.profilePictureUrl?employee.profilePictureUrl:logo} alt="logo" />
+            </div>
+            <div className="icon-container">
+                <FaRegBell className='profile-icon'/>
+            </div>
+          </div>
+      </nav>
+    )
+  }
+  
+  export default Nav
+  

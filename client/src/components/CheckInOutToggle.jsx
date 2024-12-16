@@ -1,50 +1,17 @@
 import React, { useContext, useState } from "react";
+import '../styles/ToggleButton.css'
 import { MyContext } from "../context/MyContext";
 
 const CheckInOutToggle = () => {
-  const [isCheckedIn, setIsCheckedIn] = useState(false);
-  const { employee } = useContext(MyContext);
-
-  const handleToggle = async () => {
-    setIsCheckedIn((prev) => !prev);
-
-    try {
-      if (!isCheckedIn) {
-        // Check-in API call
-        const checkinResponse = await fetch("http://localhost:5000/api/Attendance/check-in", {
-          method: "POST",
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            employeeId: employee.employeeId,
-          }),
-        });
-        const checkinData = await checkinResponse.json();
-        console.log("Check-in successful:", checkinData);
-      } else {
-        // Check-out API call
-        const checkoutResponse = await fetch("http://localhost:5000/api/Attendance/check-out", {
-          method: "POST",
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            employeeId: employee.employeeId,
-          }),
-        });
-        const checkoutData = await checkoutResponse.json();
-        console.log("Check-out successful:", checkoutData);
-      }
-    } catch (error) {
-      console.error("Error:", error);
-    }
-  };
+  const { isCheckedIn, handleToggles } = useContext(MyContext);
 
   return (
     <div>
-      <button onClick={handleToggle} className="button">
-        {isCheckedIn ? "Check-out" : "Check-in"}
+      <button onClick={handleToggles} className={`toggle-button ${isCheckedIn ? 'checked' : ''}`}>
+        <span className="toggle-text">
+          {isCheckedIn ? "Check-out" : "Check-in"}
+        </span>
+        <div className={`toggle-indicator ${isCheckedIn ? 'active' : ''}`}></div>
       </button>
     </div>
   );

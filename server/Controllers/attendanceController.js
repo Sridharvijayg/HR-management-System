@@ -30,7 +30,7 @@ const checkIn = async (req, res) => {
             attendance = new Attendance({
                 employeeId,
                 checkInTimes: [new Date()],
-                status: 'Present', // Only Present and Absent statuses
+                status: 'CheckIn', // Only Present and Absent statuses
                 date: currentDate,
             });
         } else {
@@ -63,6 +63,7 @@ const checkOut = async (req, res) => {
 
         // Add a new check-out time
         attendance.checkOutTimes.push(new Date());
+        attendance.status = "CheckOut"
 
         // Calculate total work hours for the day
         let totalMilliseconds = 0;
@@ -163,7 +164,7 @@ const getAllEmployeeAttendanceByDate = async (req, res) => {
                 record.status = 'Absent';
             } else if (checkOutTimes.length < checkInTimes.length) {
                 // Check-ins present but not enough check-outs
-                record.status = 'Absent';
+                record.status = 'CheckIn';
             } else {
                 // Both check-ins and check-outs present
                 record.status = 'Present';
